@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+  app:
+    build: ./api
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    volumes:
+      - node-modules:/app/node_modules
+      - app:/app
+
+volumes:
+  node-modules:
+  app:
+  db:
