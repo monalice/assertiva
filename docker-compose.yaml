@@ -21,8 +21,8 @@ services:
     depends_on:
       - db
     volumes:
-      - node-modules:/app/node_modules
-      - app:/app
+      - .:/app/api
+      - /app/api/node_modules
     privileged: true
 
 volumes:
