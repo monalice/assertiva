@@ -25,3 +25,9 @@ Run container
 ```bash
   docker-compose up
 ```
+
+## Swagger
+
+Documentação mais detalhada da API
+
+`http://localhost:3000/`
