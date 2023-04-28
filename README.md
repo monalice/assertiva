@@ -30,4 +30,4 @@ Run container
 
 Documentação mais detalhada da API
 
-`http://localhost:3000/`
+`http://localhost:3000/docs`
