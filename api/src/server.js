@@ -1,28 +1,21 @@
 import express, {json} from "express";
-import pg from 'pg';
+import dotenv from "dotenv";
+import cors from "cors"
+import connection from './config/database.js';
 
-const { Pool } = pg;
-
+dotenv.config({path:"../.env"});
 const app = express();
 
-const pool = new Pool({
-    user: 'postgres',
-    host: 'db',
-    database: 'db',
-    password: 'postgres',
-    port: 5432,
-});
+app.use(json());
+app.use(cors());
 
 app.get('/', async (req, res) => {
     try {
-        const client = await pool.connect();
-        const result = await client.query('SELECT * FROM clients');
+        const result = await connection.query('SELECT * FROM clients');
         const results = { results: (result) ? result.rows : null };
         res.send(results);
-        client.release();
     } catch (err) {
         console.error(err);
-        res.send("Error " + err);
     }
 });
 
@@ -35,8 +28,9 @@ app.get("/busca/nome", async (req, res) => {})
 app.put("/editar/:id", async (req, res) => {})
 
 app.delete("/excluir/:id", async (req, res) => {})
+const port = process.env.PORT || 3000;
+const nome = process.env.NOME || "Teste Assertiva";
 
-const port = 3000;
 app.listen(port, () => {
-    console.log(`App running on port ${port}.`);
+    console.log(`${nome} on Port: ${port}`);
 });
