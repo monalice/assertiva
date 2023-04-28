@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "API de Clientes"
+        "title": "API de clients"
     },
     "basePath": "/",
     "schemes": [
@@ -14,11 +14,87 @@
     "produces": [
         "application/json"
     ],
+    "definitions": {
+        "client": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "cpf": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "celular": {
+                    "type": "string"
+                },
+                "celular2": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "email2": {
+                    "type": "string"
+                }
+            }
+        },
+        "novoCliente": {
+            "type": "object",
+            "properties": {
+                "cpf": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "celular": {
+                    "type": "string"
+                },
+                "celular2": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "email2": {
+                    "type": "string"
+                }
+            },
+            "required": ["cpf", "nome", "celular", "email"]
+        },
+        "atualizaCliente": {
+            "type": "object",
+            "properties": {
+                "cpf": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "celular": {
+                    "type": "string"
+                },
+                "celular2": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "email2": {
+                    "type": "string"
+                }
+            }
+        }
+    },
     "paths": {
-        "/clientes": {
+        "/clients": {
         "get": {
             "tags": [
-                "clientes"
+                "clients"
             ],
             "summary": "Retorna uma lista de todos os clientes cadastrados",
             "responses": {
@@ -27,7 +103,7 @@
                     "schema": {
                         "type": "array",
                         "items": {
-                        "$ref": "#/definitions/cliente"
+                        "$ref": "#/definitions/client"
                         }
                     }
                 },
@@ -38,12 +114,15 @@
         },
         "post": {
             "tags": [
-                "clientes"
+                "clients"
             ],
             "summary": "Cria um novo cliente",
+            "consumes": [
+                "application/json"
+            ],
             "parameters": [{
                 "in": "body",
-                "name": "body",
+                "nome": "body",
                 "description": "Dados do cliente a ser cadastrado",
                 "required": true,
                 "schema": {
@@ -52,9 +131,9 @@
             }],
             "responses": {
                 "201": {
-                "description": "Cliente criado com sucesso",
+                "description": "cliente criado com sucesso",
                 "schema": {
-                    "$ref": "#/definitions/cliente"
+                    "$ref": "#/definitions/client"
                 }
             },
                 "500": {
@@ -63,15 +142,15 @@
             }
         }
         },
-        "/clientes/{id}": {
+        "/clients/{id}": {
             "get": {
                 "tags": [
-                    "clientes"
+                    "clients"
                 ],
                 "summary": "Retorna os dados de um cliente específico",
                 "parameters": [{
                     "in": "path",
-                    "name": "id",
+                    "nome": "id",
                     "description": "ID do cliente a ser buscado",
                     "required": true,
                     "type": "integer"
@@ -80,11 +159,11 @@
                     "200": {
                         "description": "Sucesso",
                         "schema": {
-                            "$ref": "#/definitions/cliente"
+                            "$ref": "#/definitions/client"
                         }
                     },
                     "404": {
-                        "description": "Cliente não encontrado"
+                        "description": "cliente não encontrado"
                     },
                     "500": {
                         "description": "Erro interno do servidor"
@@ -93,19 +172,22 @@
             },
             "put": {
                 "tags": [
-                    "clientes"
+                    "clients"
                 ],
                 "summary": "Atualiza os dados de um cliente específico",
+                "consumes": [
+                    "application/json"
+                ],                
                 "parameters": [{
                     "in": "path",
-                    "name": "id",
+                    "nome": "id",
                     "description": "ID do cliente a ser atualizado",
                     "required": true,
                     "type": "integer"
                 },
                 {
                     "in": "body",
-                    "name": "body",
+                    "nome": "body",
                     "description": "Dados atualizados do cliente",
                     "required": true,
                     "schema": {
@@ -114,13 +196,13 @@
                 }],
                 "responses": {
                     "200": {
-                        "description": "Cliente atualizado com sucesso",
+                        "description": "cliente atualizado com sucesso",
                         "schema": {
-                            "$ref": "#/definitions/cliente"
+                            "$ref": "#/definitions/client"
                         }
                     },
                     "404": {
-                        "description": "Cliente não encontrado"
+                        "description": "cliente não encontrado"
                     },
                     "500": {
                         "description": "Erro interno do servidor"
@@ -128,29 +210,93 @@
             },
             "delete": {
                 "tags": [
-                    "clientes"
+                    "clients"
                 ],
                 "summary": "Remove um cliente específico",
                 "parameters": [
                 {
                     "in": "path",
-                    "name": "id",
+                    "nome": "id",
                     "description": "ID do cliente a ser removido",
                     "required": true,
                     "type": "integer"
                 }],
                 "responses": {
                     "204": {
-                        "description": "Cliente removido com sucesso"
+                        "description": "cliente removido com sucesso"
                     },
                     "404": {
-                        "description": "Cliente não encontrado"
+                        "description": "cliente não encontrado"
                     },
                     "500": {
                         "description": "Erro interno do servidor"
                     }
                 }
             }
-        }        
+        },
+        "/clients/filter/ddd/{ddd}": {
+            "get": {
+                "tags": [
+                    "clients"
+                ],
+                "summary": "Retorna todos os clientes que possuem celular registrado com o DDD pesquisado",
+                "parameters": [{
+                    "in": "path",
+                    "nome": "ddd",
+                    "description": "DDD do(s) cliente(s) a ser consultado",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                            "$ref": "#/definitions/client"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "DDD não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            }
+        },
+        "/clients/filter/nome/{nome}": {
+            "get": {
+                "tags": [
+                    "clients"
+                ],
+                "summary": "Retorna todos os clientes que possuem o nome ou fragmento de nome enviado.",
+                "parameters": [{
+                    "in": "path",
+                    "nome": "nome",
+                    "description": "Nome do(s) cliente(s) a ser consultado",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                            "$ref": "#/definitions/client"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nome não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            }
+        }
     }
 }
