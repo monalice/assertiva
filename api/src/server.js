@@ -8,7 +8,7 @@ import clientsRouters from "./routers/clients.routers.js"
 dotenv.config({path:"../.env"});
 const app = express();
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(json());
 app.use(cors());
 
