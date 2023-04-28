@@ -1,11 +1,11 @@
 CREATE TABLE clients (
     id SERIAL PRIMARY KEY,
     cpf VARCHAR(11) NOT NULL UNIQUE,
-    nome VARCHAR(255) NOT NULL,
-    celular VARCHAR(11) NOT NULL,
-    celular2 VARCHAR(11),
-    email VARCHAR(255) NOT NULL,
-    email2 VARCHAR(255)
+    nome VARCHAR(100) NOT NULL,
+    celular VARCHAR(15) NOT NULL,
+    celular2 VARCHAR(15),
+    email VARCHAR(100) NOT NULL,
+    email2 VARCHAR(100)
 );
 
 INSERT INTO clients (cpf, nome, celular, email) VALUES
