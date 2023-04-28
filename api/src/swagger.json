@@ -1,0 +1,156 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "API de Clientes"
+    },
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/clientes": {
+        "get": {
+            "tags": [
+                "clientes"
+            ],
+            "summary": "Retorna uma lista de todos os clientes cadastrados",
+            "responses": {
+                "200": {
+                    "description": "Sucesso",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                        "$ref": "#/definitions/cliente"
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Erro interno do servidor"
+                }
+            }
+        },
+        "post": {
+            "tags": [
+                "clientes"
+            ],
+            "summary": "Cria um novo cliente",
+            "parameters": [{
+                "in": "body",
+                "name": "body",
+                "description": "Dados do cliente a ser cadastrado",
+                "required": true,
+                "schema": {
+                    "$ref": "#/definitions/novoCliente"
+                }
+            }],
+            "responses": {
+                "201": {
+                "description": "Cliente criado com sucesso",
+                "schema": {
+                    "$ref": "#/definitions/cliente"
+                }
+            },
+                "500": {
+                "description": "Erro interno do servidor"
+                }
+            }
+        }
+        },
+        "/clientes/{id}": {
+            "get": {
+                "tags": [
+                    "clientes"
+                ],
+                "summary": "Retorna os dados de um cliente específico",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "description": "ID do cliente a ser buscado",
+                    "required": true,
+                    "type": "integer"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/cliente"
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "clientes"
+                ],
+                "summary": "Atualiza os dados de um cliente específico",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "description": "ID do cliente a ser atualizado",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "body",
+                    "name": "body",
+                    "description": "Dados atualizados do cliente",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/atualizaCliente"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Cliente atualizado com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/cliente"
+                        }
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }}
+            },
+            "delete": {
+                "tags": [
+                    "clientes"
+                ],
+                "summary": "Remove um cliente específico",
+                "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "description": "ID do cliente a ser removido",
+                    "required": true,
+                    "type": "integer"
+                }],
+                "responses": {
+                    "204": {
+                        "description": "Cliente removido com sucesso"
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            }
+        }        
+    }
+}

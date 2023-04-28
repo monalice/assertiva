@@ -1,4 +1,6 @@
 import express, {json} from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json" assert { type: 'json' };
 import dotenv from "dotenv";
 import cors from "cors"
 import clients from "./utils/querys.js"
@@ -6,6 +8,7 @@ import clients from "./utils/querys.js"
 dotenv.config({path:"../.env"});
 const app = express();
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(json());
 app.use(cors());
 
